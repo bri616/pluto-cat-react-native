@@ -38,8 +38,9 @@ var SampleApp = React.createClass({
     } else { 
       return (
         <View style={{flex: 1}}>
-          <View style={{flex: 1}}>
-            <Image source={pic} style={{flex: 1}} resizeMode={Image.resizeMode.contain}/>
+          <View style={{flex: 2}}>
+            <Text style={{flex: 3, fontSize: 50, fontFamily: 'abrilfatface', textAlign: 'center', color: 'black' }}>Plutocat</Text>
+            <Image source={pic} style={{flex: 10}} resizeMode={Image.resizeMode.contain}/>
           </View>
           <View style={{flex: 2}}>
             <Picker

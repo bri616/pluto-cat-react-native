@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Image, Picker, StyleSheet, Text, View } from 'react-native';
+import { AppRegistry, Image, Picker, StyleSheet, Text, TextInput, View } from 'react-native';
 
 var SampleApp = React.createClass({
   componentWillMount: function() {
@@ -27,7 +27,15 @@ var SampleApp = React.createClass({
         console.error(error);
       });
   }, 
+  calculateDryFood: function() {
+    const amountOfWetFood = this.state.text;
+    const kcalWetFood = this.state.selectedFood/1000*amountOfWetFood;
+    // kgDryFood = (kcalPerFeeding - kcalWetFood) / kcalPerKgDryFood; 
+    const kgDryFood = (160 - kcalWetFood) / 3825;
+    return Math.round(kgDryFood*1000);
+  },
   render: function() {
+    console.log(this.state);
     const pic = {
       uri: 'http://bri616.github.io/fat-cat/gentlemancat.png'
     };
@@ -39,7 +47,7 @@ var SampleApp = React.createClass({
       return (
         <View style={{flex: 1}}>
           <View style={{flex: 2}}>
-            <Text style={{flex: 3, fontSize: 50, fontFamily: 'abrilfatface', textAlign: 'center', color: 'black' }}>Plutocat</Text>
+            <Text style={styles.title}>Plutocat</Text>
             <Image source={pic} style={{flex: 10}} resizeMode={Image.resizeMode.contain}/>
           </View>
           <View style={{flex: 2}}>
@@ -57,11 +65,26 @@ var SampleApp = React.createClass({
                          /> 
                 })}
             </Picker>
+            <Text>Selected Food kCal per kg: {this.state.selectedFood}</Text>
+            <Text>How much of this food will you give him in grams?</Text>
+            <TextInput onChangeText={(text) => this.setState({text})} />
+            <Text>You should give him {this.calculateDryFood()}g of dry food</Text>
+            
           </View>
         </View>
       );
     }
   }
+});
+
+const styles = StyleSheet.create({
+  title: {
+    flex: 3,
+    fontSize: 50,
+    fontFamily: 'abrilfatface',
+    textAlign: 'center',
+    color: 'black',
+  },
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => SampleApp);
